@@ -51,7 +51,7 @@ function App() {
 						</Wrapper>
 					} />
 
-					<Route path="/loca" element={
+					<Route path="/comments" element={
 						<Wrapper toggleTheme={toggleTheme} >
 							<Comments />
 						</Wrapper>
