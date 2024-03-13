@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Button = styled.button<{ $primary?: boolean; }>`
+const StyledButton = styled.button<{ $primary?: boolean; $underline?: boolean; $isMobileHidden?: boolean; $isMobileShow?: boolean }>`
   background: ${props => props.$primary ? "#222" : "white"};
   color: ${props => props.$primary ? "white" : "#222"};
   border-radius: 8px;
@@ -14,6 +14,20 @@ const Button = styled.button<{ $primary?: boolean; }>`
   line-height: 20px;
   text-transform: uppercase;
   cursor: pointer;
+  ${({ $underline }) => $underline && `
+    border-bottom: 2px solid #222;
+    border-radius: 0px;
+  `}
+
+  ${({ $isMobileHidden }) => $isMobileHidden && `
+  @media (max-width: 1080px) {
+    display: none;
+  }`} 
+
+${({ $isMobileShow }) => $isMobileShow && `
+  @media (min-width: 1080px) {
+    display: none;
+  }`} 
 
   &:hover{
     border: 1px solid transparent;
@@ -21,4 +35,4 @@ const Button = styled.button<{ $primary?: boolean; }>`
   }
 `;
 
-export default Button;
+export default StyledButton;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CommentUser = styled.p`
+const StyledCommentUser = styled.p`
    color: #222;
    font-family: "Playfair Display";
    font-size: 16px;
@@ -9,4 +9,4 @@ const CommentUser = styled.p`
    line-height: 32px;
 `;
 
-export default CommentUser;
+export default StyledCommentUser;

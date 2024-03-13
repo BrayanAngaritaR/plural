@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const CommentCard = styled.div`
+const StyledCommentCard = styled.div`
    text-align: left;
    padding: 32px;
    flex-direction: column;
@@ -11,4 +11,4 @@ const CommentCard = styled.div`
    border: 1px solid #222;
 `;
 
-export default CommentCard;
+export default StyledCommentCard;

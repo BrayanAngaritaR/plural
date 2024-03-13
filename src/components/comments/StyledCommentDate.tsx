@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CommentDate = styled.p`
+const StyledCommentDate = styled.p`
    color: #878787;
    font-family: "Playfair Display";
    font-size: 12px;
@@ -9,4 +9,4 @@ const CommentDate = styled.p`
    line-height: 16px; /* 133.333% */
 `;
 
-export default CommentDate;
+export default StyledCommentDate;
