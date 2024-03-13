@@ -15,7 +15,7 @@ const StyledContainerFooter = styled.div<{}>`
 `;
 
 const StyledFooter = () => {
-    const {isDark} = useTheme();
+    const {isDark} = useTheme(); 
 
     return (
        <StyledContainerFooter>

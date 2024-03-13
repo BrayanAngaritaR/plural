@@ -26,14 +26,17 @@ const StyledTitle = styled.h1<{}>`
 `;
 
 const StyledP = styled.p`
-    margin: 0px;
+    margin: 0px auto;
     color: ${(props) => props.theme.text};
     font-family: Playfair;
     max-width: 720px;
-    padding: 0px 25vw;
     
-    @media (max-width: 678px) {
+    @media (max-width: 1080px) {
       padding: 0px 32px;
+   }
+
+   @media (min-width: 1080px) {
+      padding: 0px 25vw;
    }
 `;
 
