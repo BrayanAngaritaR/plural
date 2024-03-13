@@ -7,7 +7,6 @@ import StyledCommentUser from "../components/comments/StyledCommentUser";
 import StyledCommentDate from "../components/comments/StyledCommentDate";
 import StyledComment from "../components/comments/StyledComment";
 
-
 const StyledP = styled.p`
     margin: 0px;
     color: ${(props) => props.theme.text};
@@ -20,31 +19,36 @@ const StyledP = styled.p`
    }
 `;
 
-interface Comment {
-   postId: number
-   id: number
-   name: string
-   email: string
-   body: string
+interface Comment { 
+   postId: number 
+   id: number 
+   name: string 
+   email: string 
+   body: string 
 }
-
 
 const Comments = () => {
 
-   const fetchProjects = async () => await fetch('https://jsonplaceholder.typicode.com/comments?postId=1').then((res) => res.json())
 
-   const {
-      data,
-      isLoading
-   } = useQuery({ queryKey: ['todos'], queryFn: fetchProjects })
+   function randomIntFromInterval(min, max) { // min and max included 
+      return Math.floor(Math.random() * (max - min + 1) + min)
+   }
+    
+   let post_id = randomIntFromInterval(1, 6);
+   const fetchProjects = async () => await fetch(`https://jsonplaceholder.typicode.com/comments?postId=` + post_id).then((res) => res.json())
 
-   const [comments, setComments] = useState<Comment[]>(data || [])
+   const { 
+      data, 
+      isLoading 
+   } = useQuery({ queryKey: ['todos'], queryFn: fetchProjects }) 
 
-   useEffect(() => {
-      setComments(data)
-   }, [data])
+   const [comments, setComments] = useState<Comment[]>(data || []) 
 
-   return (
+   useEffect(() => { 
+      setComments(data) 
+   }, [data]) 
+
+   return ( 
       <>
          <StyledP>Leave a comment:</StyledP>
          <StyledInput placeholder="Write here"></StyledInput>

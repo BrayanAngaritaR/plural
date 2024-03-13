@@ -9,6 +9,7 @@ const StyledCommentCard = styled.div`
    align-self: stretch; 
    border-radius: 16px;
    border: 1px solid #222;
+   margin-bottom: 16px;
 `;
 
 export default StyledCommentCard;
