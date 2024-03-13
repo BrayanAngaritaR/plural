@@ -4,21 +4,34 @@ import styled from "styled-components";
 const StyledContainer = styled.article`
     display: flex;
     flex-direction: column;
-    gap:10px;
+    gap: 10px;
+    padding: 112px 0px;
+
+    @media (max-width: 678px) {
+      padding: 0px;
+   }
 `;
 
 const StyledP = styled.p`
     margin: 0px;
+    color: ${(props) => props.theme.text};
+    font-family: Playfair;
+    max-width: 720px;
+    padding: 0px 25vw;
+    
+    @media (max-width: 678px) {
+      padding: 0px 32px;
+   }
 `;
 
 const StyledStrong = styled.strong<{
-    $underline?: boolean;
- }>`
+   $underline?: boolean;
+}>`
  ${({ $underline }) =>
- $underline &&
- `
- text-decoration: underline;
- `}
+      $underline &&
+      `
+         text-decoration: underline;
+      `}
 
 `;
 

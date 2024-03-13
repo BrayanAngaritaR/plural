@@ -25,10 +25,12 @@ const StyledApp = styled.div`
 
 const darkTheme = {
 	body: "#222222",
+	text: "#ffffff"
 };
 
 const lightTheme = {
 	body: "#ffffff",
+	text: "#222222"
 };
 
 function App() {
