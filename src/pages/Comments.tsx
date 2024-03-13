@@ -1,15 +1,30 @@
 import styled from "styled-components";
-import StyledInput from "../components/StyledInput";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { FormEvent, useEffect, useState } from "react";
 import StyledCommentCard from '../components/comments/StyledCommentCard';
 import StyledCommentUser from "../components/comments/StyledCommentUser";
 import StyledCommentDate from "../components/comments/StyledCommentDate";
 import StyledComment from "../components/comments/StyledComment";
 import StyledTextArea from "../components/StyledInput";
+import { SvgBackArrow, SvgHalfHeart, SvgHeart } from "../components/Svgs";
+import { useNavigate } from "react-router-dom";
 
 const StyledForm = styled.form`
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column
+`
 
+const StyledContainerSecondary = styled.div`
+   display: flex;
+   flex-direction: column;
+   gap:32px
+`
+
+const StyledContainerHeart = styled.form`
+   display: flex;
+   gap: 8px;
+   padding: 32px 0px;
 `
 
 const StyledContainerComment = styled.p`
@@ -23,6 +38,8 @@ const StyledContainerComment = styled.p`
 const StyledP = styled.p`
     color: ${(props) => props.theme.text};
     font-family: Playfair;  
+    display: flex;
+
 `;
 
 const StyledBtnSubmit = styled.button`
@@ -30,7 +47,22 @@ const StyledBtnSubmit = styled.button`
    border-radius: 20px;
    padding: 20px;
    margin: 20px;
-   text-align: center;
+   display: flex;
+   justify-content: center;
+`
+
+const StyledTextApple = styled.span`
+   color: ${(props) => props.theme.text};
+   font-family: "Playfair Display";
+   font-size: 32px;
+   font-style: normal;
+   font-weight: 600;
+   line-height: 40px;
+`
+
+const StyledContainerBtn = styled.div`
+   display: flex;
+   justify-content: center
 `
 
 interface Comment {
@@ -50,9 +82,10 @@ const Comments = () => {
    let post_id = randomIntFromInterval(1, 10);
    const fetchProjects = async () => await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${post_id}`).then((res) => res.json())
 
+   const navigate = useNavigate();
+   
    const {
       data,
-      //isLoading
    } = useQuery({ queryKey: ['todos'], queryFn: fetchProjects })
 
    const [comments, setComments] = useState<Comment[]>(data || [])
@@ -76,18 +109,35 @@ const Comments = () => {
    }
 
    useEffect(() => {
-      const newData = data?.map( ( comment : Comment ) => { return {...comment, date: new Date(`2024-${randomIntFromInterval(1,12)}-${randomIntFromInterval(1,31)}`)} } )
+      const newData = data?.map((comment: Comment) => { return { ...comment, date: new Date(`2024-${randomIntFromInterval(1, 12)}-${randomIntFromInterval(1, 31)}`) } })
       setComments(newData)
    }, [data])
 
    return (
       <StyledContainerComment>
-         <StyledForm onSubmit={(event: FormEvent) =>{handleOnSubmit(event)} }>
+
+         <StyledContainerSecondary >
+            <SvgBackArrow handleclick={() => navigate(`/`)}/>
+            <StyledTextApple>
+               Do you like apples?
+            </StyledTextApple>
+            <StyledContainerHeart>
+               <SvgHeart />
+               <SvgHeart />
+               <SvgHeart />
+               <SvgHeart />
+               <SvgHalfHeart />
+            </StyledContainerHeart>
+         </StyledContainerSecondary>
+
+         <StyledForm onSubmit={(event: FormEvent) => { handleOnSubmit(event) }}>
             <StyledP>Leave a comment:</StyledP>
-            <StyledTextArea value={newComment} onChange={(e) => setNewCommemt(e.target.value) } rows={"5"} placeholder="Write here..."></StyledTextArea>
-            <StyledBtnSubmit type="submit"  >
-               Enviar comentario
-            </StyledBtnSubmit>
+            <StyledTextArea value={newComment} onChange={(e) => setNewCommemt(e.target.value)} rows={5} placeholder="Write here..."></StyledTextArea>
+            <StyledContainerBtn >
+               <StyledBtnSubmit type="submit"  >
+                  Enviar comentario
+               </StyledBtnSubmit>
+            </StyledContainerBtn>
          </StyledForm>
          <br /><br /><br />
          {comments?.map((comment) =>

@@ -74,7 +74,6 @@ const StyledSecondaryText = styled.p`
 `;
 
 const StyledMenu = ({ toggleTheme }: { toggleTheme: () => void }) => {
-   const [isOpen, setIsOpen] = useState(false);
    const {isDark} = useTheme();
 
    const navigate = useNavigate();
