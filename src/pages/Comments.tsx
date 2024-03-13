@@ -1,12 +1,25 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import styled from "styled-components";
+import StyledInput from "../components/StyledInput";
 
-const queryClient = new QueryClient();
+const StyledP = styled.p`
+    margin: 0px;
+    color: ${(props) => props.theme.text};
+    font-family: Playfair;
+    max-width: 720px;
+    padding: 0px 25vw;
+    
+    @media (max-width: 678px) {
+      padding: 0px 32px;
+   }
+`;
 
-function Comments() {
+const Comments = () => {
+
    return (
-      <QueryClientProvider client={queryClient}>
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae asperiores error esse eligendi, fugit veniam harum ex, explicabo impedit deserunt enim. Dolores molestias consectetur vel mollitia sed quisquam maiores dolorum.</p>
-      </QueryClientProvider>
+      <>
+      <StyledP>Leave a comment:</StyledP>
+      <StyledInput placeholder="Write here"></StyledInput>
+      </>
    )
 }
 
