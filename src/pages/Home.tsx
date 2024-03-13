@@ -4,11 +4,12 @@ import styled from "styled-components";
 const StyledContainer = styled.article`
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 32px;
     padding: 112px 0px;
 
     @media (max-width: 678px) {
       padding: 0px;
+      gap: 64px;
    }
 `;
 
