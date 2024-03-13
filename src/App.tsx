@@ -24,11 +24,13 @@ const StyledApp = styled.div`
 `;
 
 const darkTheme = {
+	isDark: true,
 	body: "#222222",
 	text: "#ffffff"
 };
 
 const lightTheme = {
+	isLight: true,
 	body: "#ffffff",
 	text: "#222222"
 };
