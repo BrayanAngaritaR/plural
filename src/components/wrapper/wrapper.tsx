@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import styled from "styled-components";
 import StyledMenu from "../menu/StyledMenu";
 import StyledMainContainer from "../StyledContainer";
@@ -11,14 +13,13 @@ const StyledApp = styled.div`
 `;
 
 export const Wrapper = ({ children, toggleTheme }: any) => {
-    console.info("children", children)
     return (
         <StyledApp>
             <StyledMainContainer>
                 <StyledMenu toggleTheme={toggleTheme}></StyledMenu>
                 {children}
             </StyledMainContainer>
-            <StyledFooter/>
+            <StyledFooter />
         </StyledApp>
     );
-  };
+};

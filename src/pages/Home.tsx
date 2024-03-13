@@ -13,6 +13,18 @@ const StyledContainer = styled.article`
    }
 `;
 
+const StyledTitle = styled.h1<{}>`
+   margin: 0px;
+   color: ${(props) => props.theme.text};
+   font-size: 32px;
+   font-weight: 600;
+   font-family: Playfair Display;
+   padding: 0px 32px;
+   @media (min-width: 678px) {
+      display: none;
+   }
+`;
+
 const StyledP = styled.p`
     margin: 0px;
     color: ${(props) => props.theme.text};
@@ -33,12 +45,15 @@ const StyledStrong = styled.strong<{
       `
          text-decoration: underline;
       `}
-
 `;
 
 const Home = () => {
    return (
       <StyledContainer>
+         <StyledTitle>
+            An experiment in research independece and innovation
+         </StyledTitle>
+         
          <StyledP>
             We are a <StyledStrong> community of open-source </StyledStrong> researchers committed to solving
             the hardest problems in decentralization, including the challenge of

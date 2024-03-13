@@ -2,6 +2,7 @@ import { useState } from "react";
 import StyledButton from "../StyledButton";
 import styled from "styled-components";
 import Logo from "../../assets/img/logo.png";
+import { useLocation, useNavigate,  } from "react-router-dom";
 
 const StyledContainerMenu = styled.div<{
    $isMobileShow?: boolean;
@@ -73,6 +74,13 @@ const StyledSecondaryText = styled.p`
 const StyledMenu = ({ toggleTheme }: { toggleTheme: () => void }) => {
    const [isOpen, setIsOpen] = useState(false);
 
+   const navigate = useNavigate();
+
+   const { pathname } = useLocation()
+
+   const toComments = () => {
+      navigate(`/comments`)
+   }
    return (
       <StyledContainerMenu $isMobileShow>
          <StyledContainerMenuLeftSide>
@@ -104,15 +112,26 @@ const StyledMenu = ({ toggleTheme }: { toggleTheme: () => void }) => {
                   />
                </svg>
             </StyledButton>
-            <StyledButton $underline $isMobileHidden>
-               {" "}
-               Agenda{" "}
-            </StyledButton>
-            <StyledButton $isMobileHidden> Account </StyledButton>
-            <StyledButton $primary $isMobileHidden>
-               {" "}
-               Log Out{" "}
-            </StyledButton>
+            {
+               pathname === '/comments' &&
+               <>
+                  <StyledButton $underline $isMobileHidden>
+                  {" "}
+                  Agenda{" "}
+                  </StyledButton>
+                  <StyledButton $isMobileHidden> Account </StyledButton>
+                  <StyledButton $primary $isMobileHidden>
+                     {" "}
+                     Log Out{" "}
+                  </StyledButton>
+               </>
+            }
+            {
+               pathname !== '/comments' &&
+                  <StyledButton $primary $isMobileHidden onClick={() => toComments()}>
+                     {`ZUPASS REGISTER`}
+                  </StyledButton>
+            }
             <StyledButton onClick={toggleTheme} $primary>
                <svg
                   width="20"
