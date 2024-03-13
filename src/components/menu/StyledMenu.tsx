@@ -61,6 +61,7 @@ const StyledPrincipalText = styled.p`
    font-size: 29.6px;
    font-weight: 600;
    font-family: "Playfair Display";
+   color: ${(props) => props.theme.text};
 `;
 
 const StyledSecondaryText = styled.p`
@@ -69,6 +70,7 @@ const StyledSecondaryText = styled.p`
    font-weight: 500;
    font-style: italic;
    font-family: "Playfair";
+   color: ${(props) => props.theme.text};
 `;
 
 const StyledMenu = ({ toggleTheme }: { toggleTheme: () => void }) => {
