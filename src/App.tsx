@@ -15,6 +15,7 @@ import StyledMenu from "./components/menu/StyledMenu";
 import Home from "./pages/Home";
 import Comments from "./pages/Comments";
 import { Wrapper } from "./components/wrapper/wrapper";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const StyledApp = styled.div`
    min-height: 100vh;
@@ -39,6 +40,8 @@ function App() {
 	const [theme, setTheme] = useState("light");
 	const isDarkTheme = theme === "dark";
 
+	const queryClient = new QueryClient();
+
 	const toggleTheme = () => {
 		setTheme(isDarkTheme ? "light" : "dark");
 	};
@@ -55,7 +58,9 @@ function App() {
 
 					<Route path="/comments" element={
 						<Wrapper toggleTheme={toggleTheme} >
-							<Comments />
+							<QueryClientProvider client={queryClient}>
+								<Comments />
+							</QueryClientProvider>
 						</Wrapper>
 					} />
 				</Routes>

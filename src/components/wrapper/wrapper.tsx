@@ -1,9 +1,8 @@
-import { useLocation } from 'react-router-dom';
 
 import styled from "styled-components";
 import StyledMenu from "../menu/StyledMenu";
 import StyledMainContainer from "../StyledContainer";
-import StyledFooter from "../comments/footer/StyledFooter";
+import StyledFooter from "../footer/StyledFooter";
 
 const StyledApp = styled.div`
    min-height: 100vh;

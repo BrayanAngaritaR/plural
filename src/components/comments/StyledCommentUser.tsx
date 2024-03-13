@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledCommentUser = styled.p`
-   color: #222;
+   color: ${(props) => props.theme.text};
    font-family: "Playfair Display";
    font-size: 16px;
    font-style: normal;
