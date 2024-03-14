@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledTextArea = styled.input`
+const StyledInput = styled.input`
    display: flex;
    align-items: flex-start;
    gap: 16px;
@@ -16,4 +16,4 @@ const StyledTextArea = styled.input`
    line-height: 22px;
 `;
 
-export default StyledTextArea;
+export default StyledInput;

@@ -1,25 +1,36 @@
+import "regenerator-runtime";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
+import useSpeechRecognition from "../hooks/useSpeechRecognitionHook";
+
 import StyledCommentCard from '../components/comments/StyledCommentCard';
 import StyledCommentUser from "../components/comments/StyledCommentUser";
 import StyledCommentDate from "../components/comments/StyledCommentDate";
 import StyledComment from "../components/comments/StyledComment";
-import StyledTextArea from "../components/StyledInput";
+import StyledInput from "../components/StyledInput";
 import { SvgBackArrow, SvgHalfHeart, SvgHeart } from "../components/Svgs";
-import { useNavigate } from "react-router-dom";
+import StyledButton from "../components/StyledButton";
 
 const StyledForm = styled.form`
    display: flex;
    flex-wrap: wrap;
-   flex-direction: column
-`
+   flex-direction: column;
+`;
 
 const StyledContainerSecondary = styled.div`
    display: flex;
    flex-direction: column;
-   gap:32px
-`
+   gap: 32px;
+`;
+
+const StyledCommentsContainer = styled.div`
+   margin-top: 32px;
+   gap: 32px;
+`;
 
 const StyledContainerHeart = styled.form`
    display: flex;
@@ -41,17 +52,15 @@ const StyledP = styled.p`
    display: flex;
    font-weight: 500;
    font-style: normal;
-   font-weight: 500;
 `;
 
-const StyledBtnSubmit = styled.button`
-   width: 200px;
-   border-radius: 20px;
-   padding: 20px;
-   margin: 20px;
-   display: flex;
-   justify-content: center;
-`
+const StyledTextCounter = styled.p`
+   color: ${(props) => props.theme.text};
+   font-family: "Playfair Display";  
+   font-weight: 600;
+   font-style: normal;
+   font-size: 24px;
+`;
 
 const StyledTextApple = styled.span`
    color: ${(props) => props.theme.text};
@@ -60,11 +69,6 @@ const StyledTextApple = styled.span`
    font-style: normal;
    font-weight: 600;
    line-height: 40px;
-`
-
-const StyledContainerBtn = styled.div`
-   display: flex;
-   justify-content: center
 `
 
 interface Comment {
@@ -77,37 +81,41 @@ interface Comment {
 }
 
 const Comments = () => {
+   //Speech recognition hook
+   const { text, setText, stopListening, isListening, startListening, hasRecognitionSupport } = useSpeechRecognition();
+
+   //Get a random number
    const randomIntFromInterval = (min: number, max: number) => {
       return Math.floor(Math.random() * (max - min + 1) + min)
    }
 
    let post_id = randomIntFromInterval(1, 10);
-   const fetchProjects = async () => await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${post_id}`).then((res) => res.json())
+   const fetchComments = async () => await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${post_id}`).then((res) => res.json())
 
    const navigate = useNavigate();
-   
+
    const {
       data,
-   } = useQuery({ queryKey: ['comments'], queryFn: fetchProjects })
+   } = useQuery({ queryKey: ['comments'], queryFn: fetchComments })
 
    const [comments, setComments] = useState<Comment[]>(data || [])
+   const totalComments = comments ? Object.keys(comments).length : 0;
 
-   const [newComment, setNewCommemt] = useState<string>()
+   // const [newComment, setNewComment] = useState<string>('')
 
    const handleOnSubmit = (event: FormEvent) => {
       event.preventDefault();
-      console.info("newComment", newComment)
       setComments([
          {
             postId: comments[0].id,
             id: 500,
             email: 'hi@pluralresearch.org',
-            body: `${newComment}`,
+            body: `${text}`,
             date: new Date(),
          },
          ...comments
       ])
-      setNewCommemt('')
+      setText('')
    }
 
    useEffect(() => {
@@ -117,9 +125,8 @@ const Comments = () => {
 
    return (
       <StyledContainerComment>
-
          <StyledContainerSecondary >
-            <SvgBackArrow handleclick={() => navigate(`/`)}/>
+            <SvgBackArrow handleclick={() => navigate(`/`)} />
             <StyledTextApple>
                Do you like apples?
             </StyledTextApple>
@@ -134,23 +141,30 @@ const Comments = () => {
 
          <StyledForm onSubmit={(event: FormEvent) => { handleOnSubmit(event) }}>
             <StyledP>Leave a comment:</StyledP>
-            <StyledTextArea value={newComment} onChange={(e) => setNewCommemt(e.target.value)} rows={5} placeholder="Write here..."></StyledTextArea>
-         </StyledForm>
-         <br /><br /><br />
-         {comments?.map((comment) =>
-            <StyledCommentCard key={comment.id}>
-               <StyledCommentUser>
-                  {comment.email}
-               </StyledCommentUser>
-               <StyledCommentDate>
-                  {`${comment?.date?.toLocaleDateString()}`}
-               </StyledCommentDate>
-               <StyledComment>
-                  {comment.body}
-               </StyledComment>
-            </StyledCommentCard>
+            <StyledInput value={text} onChange={(e) => setText(e.target.value + text)} placeholder="Write here..."></StyledInput>
 
-         )}
+            {hasRecognitionSupport ? (
+               <StyledButton type="button" onClick={!isListening ? startListening : stopListening}>{isListening ? 'Stop recording' : 'Start recording'}</StyledButton>
+            ) : <></>}
+         </StyledForm>
+
+         <StyledCommentsContainer>
+            <StyledTextCounter>Total comments ({totalComments})</StyledTextCounter>
+            {comments?.map((comment) =>
+               <StyledCommentCard key={comment.id}>
+                  <StyledCommentUser>
+                     {comment.email}
+                  </StyledCommentUser>
+                  <StyledCommentDate>
+                     {`${comment?.date?.toLocaleDateString()}`}
+                  </StyledCommentDate>
+                  <StyledComment>
+                     {comment.body}
+                  </StyledComment>
+               </StyledCommentCard>
+            )}
+         </StyledCommentsContainer>
+
       </StyledContainerComment>
    )
 }
