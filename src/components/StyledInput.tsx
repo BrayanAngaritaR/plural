@@ -1,14 +1,19 @@
 import styled from "styled-components";
 
-const StyledTextArea = styled.textarea`
+const StyledTextArea = styled.input`
    display: flex;
    align-items: flex-start;
-   gap: 10px;
+   gap: 16px;
+   padding: 16px 0px 60px 16px;
    align-self: stretch;
-   width: 100%;
    border-radius: 4px;
    border: 1px solid #222;
    background: #FFF;
+   font-family: 'Raleway', sans-serif;
+   font-size: 14px;
+   font-style: normal;
+   font-weight: 400;
+   line-height: 22px;
 `;
 
 export default StyledTextArea;

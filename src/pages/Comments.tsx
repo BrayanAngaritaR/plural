@@ -36,10 +36,12 @@ const StyledContainerComment = styled.p`
 `;
 
 const StyledP = styled.p`
-    color: ${(props) => props.theme.text};
-    font-family: Playfair;  
-    display: flex;
-
+   color: ${(props) => props.theme.text};
+   font-family: "Playfair";  
+   display: flex;
+   font-weight: 500;
+   font-style: normal;
+   font-weight: 500;
 `;
 
 const StyledBtnSubmit = styled.button`
@@ -86,7 +88,7 @@ const Comments = () => {
    
    const {
       data,
-   } = useQuery({ queryKey: ['todos'], queryFn: fetchProjects })
+   } = useQuery({ queryKey: ['comments'], queryFn: fetchProjects })
 
    const [comments, setComments] = useState<Comment[]>(data || [])
 
@@ -99,7 +101,7 @@ const Comments = () => {
          {
             postId: comments[0].id,
             id: 500,
-            email: 'email@dominio.com',
+            email: 'hi@pluralresearch.org',
             body: `${newComment}`,
             date: new Date(),
          },
@@ -133,11 +135,6 @@ const Comments = () => {
          <StyledForm onSubmit={(event: FormEvent) => { handleOnSubmit(event) }}>
             <StyledP>Leave a comment:</StyledP>
             <StyledTextArea value={newComment} onChange={(e) => setNewCommemt(e.target.value)} rows={5} placeholder="Write here..."></StyledTextArea>
-            <StyledContainerBtn >
-               <StyledBtnSubmit type="submit"  >
-                  Enviar comentario
-               </StyledBtnSubmit>
-            </StyledContainerBtn>
          </StyledForm>
          <br /><br /><br />
          {comments?.map((comment) =>

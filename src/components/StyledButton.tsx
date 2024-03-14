@@ -7,7 +7,7 @@ const StyledButton = styled.button<{ $primary?: boolean; $underline?: boolean; $
   padding: 8px 16px;
   justify-content: center;
   align-items: center;
-  font-family: Raleway;
+  font-family: "Raleway";
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
