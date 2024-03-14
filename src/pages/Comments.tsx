@@ -141,7 +141,7 @@ const Comments = () => {
 
          <StyledForm onSubmit={(event: FormEvent) => { handleOnSubmit(event) }}>
             <StyledP>Leave a comment:</StyledP>
-            <StyledInput value={text} onChange={(e) => setText(e.target.value + text)} placeholder="Write here..."></StyledInput>
+            <StyledInput value={text} onChange={(e) => setText(e.target.value ? e.target.value : text)} placeholder="Write here..."></StyledInput>
 
             {hasRecognitionSupport ? (
                <StyledButton type="button" onClick={!isListening ? startListening : stopListening}>{isListening ? 'Stop recording' : 'Start recording'}</StyledButton>
